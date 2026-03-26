@@ -2,7 +2,9 @@ package com.example.sistema.automotivo.service;
 
 import com.example.sistema.automotivo.dto.MensagemChatRequestDTO;
 import com.example.sistema.automotivo.dto.MensagemChatResponseDTO;
+import com.example.sistema.automotivo.mapper.MensagemChatMapper;
 import com.example.sistema.automotivo.model.MensagemChatModel;
+import com.example.sistema.automotivo.model.UsuarioModel;
 import com.example.sistema.automotivo.repository.MensagemChatRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,30 +17,28 @@ public class MensagemChatService {
     @Autowired
     private MensagemChatRepository repository;
 
-    public MensagemChatResponseDTO enviarMensagem(MensagemChatRequestDTO request) {
+    @Autowired
+    private UsuarioService usuarioService;
+
+    @Autowired
+    private MensagemChatMapper mensagemChatMapper;
+
+    public MensagemChatModel enviarMensagem(MensagemChatRequestDTO request) {
+        UsuarioModel remetente = usuarioService.buscarUsuarioPorId(request.getRemetenteId());
         MensagemChatModel mensagemChat = new MensagemChatModel();
         mensagemChat.setOrdemServicoId(request.getOrdemServicoId());
-        mensagemChat.setRemetenteId(request.getRemetenteId());
+        mensagemChat.setRemetente(remetente);
         mensagemChat.setMensagem(request.getMensagem());
 
-        mensagemChat = repository.save(mensagemChat);
-        return mapearParaResponse(mensagemChat);
+        return  repository.save(mensagemChat);
     }
 
     public List<MensagemChatResponseDTO> obterHistoricoChat(Long ordemServicoId) {
         return repository.findByOrdemServicoIdOrderByDataEnvioAsc(ordemServicoId)
                 .stream()
-                .map(this::mapearParaResponse)
+                .map(mensagemChatMapper::toResponseDto)
                 .collect(Collectors.toList());
     }
 
-    private MensagemChatResponseDTO mapearParaResponse(MensagemChatModel mensagemChat) {
-        MensagemChatResponseDTO response = new MensagemChatResponseDTO();
-        response.setId(mensagemChat.getId());
-        response.setOrdemServicoId(mensagemChat.getOrdemServicoId());
-        response.setRemetenteId(mensagemChat.getRemetenteId());
-        response.setMensagem(mensagemChat.getMensagem());
-        response.setDataEnvio(mensagemChat.getDataEnvio());
-        return response;
-    }
+
 }

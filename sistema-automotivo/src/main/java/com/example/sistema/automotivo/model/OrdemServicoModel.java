@@ -11,8 +11,9 @@ public class OrdemServicoModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "cliente_id", nullable = false)
-    private Long clienteId;
+    @ManyToOne
+    @JoinColumn(name = "cliente_id", nullable = false)
+    private UsuarioModel cliente;
 
     @Column(name = "modelo_veiculo", nullable = false)
     private String modeloVeiculo;
@@ -30,9 +31,9 @@ public class OrdemServicoModel {
     public OrdemServicoModel() {
     }
 
-    public OrdemServicoModel(Long id, Long clienteId, String modeloVeiculo, String descricaoProblema, StatusOrdem status, LocalDateTime dataCriacao) {
+    public OrdemServicoModel(Long id, UsuarioModel cliente, String modeloVeiculo, String descricaoProblema, StatusOrdem status, LocalDateTime dataCriacao) {
         this.id = id;
-        this.clienteId = clienteId;
+        this.cliente = cliente;
         this.modeloVeiculo = modeloVeiculo;
         this.descricaoProblema = descricaoProblema;
         this.status = status;
@@ -47,12 +48,12 @@ public class OrdemServicoModel {
         this.id = id;
     }
 
-    public Long getClienteId() {
-        return clienteId;
+    public UsuarioModel getCliente() {
+        return cliente;
     }
 
-    public void setClienteId(Long clienteId) {
-        this.clienteId = clienteId;
+    public void setCliente(UsuarioModel cliente) {
+        this.cliente = cliente;
     }
 
     public String getModeloVeiculo() {
@@ -85,17 +86,5 @@ public class OrdemServicoModel {
 
     public void setDataCriacao(LocalDateTime dataCriacao) {
         this.dataCriacao = dataCriacao;
-    }
-
-    @Override
-    public String toString() {
-        return "OndemServicoModel{" +
-                "id=" + id +
-                ", clienteId=" + clienteId +
-                ", modeloVeiculo='" + modeloVeiculo + '\'' +
-                ", descricaoProblema='" + descricaoProblema + '\'' +
-                ", status=" + status +
-                ", dataCriacao=" + dataCriacao +
-                '}';
     }
 }

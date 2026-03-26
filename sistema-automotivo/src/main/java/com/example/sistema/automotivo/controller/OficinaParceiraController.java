@@ -3,12 +3,15 @@ package com.example.sistema.automotivo.controller;
 import com.example.sistema.automotivo.dto.OficinaParceiroRequestDTO;
 import com.example.sistema.automotivo.dto.OficinaParceiroResponseDTO;
 import com.example.sistema.automotivo.service.OficinaParceiroService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(name = "/oficinas")
@@ -18,8 +21,9 @@ public class OficinaParceiraController {
     private OficinaParceiroService service;
 
     @PostMapping
-    public ResponseEntity<OficinaParceiroResponseDTO> cadastrarOficina(@RequestBody OficinaParceiroRequestDTO request) {
-        return ResponseEntity.ok(service.cadastrarOficina(request));
+    public ResponseEntity<Map<String, Object>> cadastrarOficina(@Valid @RequestBody OficinaParceiroRequestDTO request) {
+        service.cadastrarOficina(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("message", "Oficina cadastrada", "success", true));
     }
 
     @GetMapping

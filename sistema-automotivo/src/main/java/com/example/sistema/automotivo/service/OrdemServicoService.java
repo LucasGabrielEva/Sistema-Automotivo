@@ -2,8 +2,10 @@ package com.example.sistema.automotivo.service;
 
 import com.example.sistema.automotivo.dto.OrdemServicoRequestDTO;
 import com.example.sistema.automotivo.dto.OrdemServicoResponseDTO;
+import com.example.sistema.automotivo.mapper.OrdemServicoMapper;
 import com.example.sistema.automotivo.model.OrdemServicoModel;
 import com.example.sistema.automotivo.model.StatusOrdem;
+import com.example.sistema.automotivo.model.UsuarioModel;
 import com.example.sistema.automotivo.repository.OrdemServicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
@@ -17,41 +19,46 @@ public class OrdemServicoService {
     @Autowired
     private OrdemServicoRepository repository;
 
-    public OrdemServicoResponseDTO criarOrdem(OrdemServicoRequestDTO request) {
+    @Autowired
+    private UsuarioService usuarioService;
+
+
+
+
+    @Autowired
+    private OrdemServicoMapper ordemServicoMapper;
+
+    public OrdemServicoModel criarOrdemServico(OrdemServicoRequestDTO request) {
+        UsuarioModel cliente = usuarioService.buscarUsuarioPorId(request.getClienteId());
         OrdemServicoModel ordem = new OrdemServicoModel();
-        ordem.setClienteId(request.getClienteId());
+        ordem.setCliente(cliente);
         ordem.setModeloVeiculo(request.getModeloVeiculo());
         ordem.setDescricaoProblema(request.getDescricaoProblema());
 
-        ordem = repository.save(ordem);
-        return mapearParaResponse(ordem);
+
+
+
+        return repository.save(ordem);
     }
 
-    public List<OrdemServicoResponseDTO> listarTodas() {
+
+
+    public List<OrdemServicoResponseDTO>listarTodos() {
         return repository.findAll()
                 .stream()
-                .map(this::mapearParaResponse)
+                .map(ordemServicoMapper::toResponseDto)
                 .collect(Collectors.toList());
     }
 
-    public OrdemServicoResponseDTO atualizarStatus(Long id, StatusOrdem novoStatus) {
-        OrdemServicoModel ordem = repository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("OS não encontrada com id: " + id));
+    public OrdemServicoModel atualizarOrdemServico(Long id, StatusOrdem novoStatus) {
+            OrdemServicoModel ordem =  repository.findById(id)
+                    .orElseThrow(() -> new IllegalArgumentException("OS não encontrado com o id: " + id));
 
-        ordem.setStatus(novoStatus);
-        ordem = repository.save(ordem);
-        return mapearParaResponse(ordem);
-    }
 
-    private OrdemServicoResponseDTO mapearParaResponse(OrdemServicoModel ordem) {
-        OrdemServicoResponseDTO response = new OrdemServicoResponseDTO();
-        response.setId(ordem.getId());
-        response.setClienteId(ordem.getClienteId());
-        response.setModeloVeiculo(ordem.getModeloVeiculo());
-        response.setDescricaoProblema(ordem.getDescricaoProblema());
-        response.setStatus(ordem.getStatus());
-        response.setDataCriacao(ordem.getDataCriacao());
-        return response;
+            ordem.setStatus(novoStatus);
+            return repository.save(ordem);
+
+
     }
 
 }

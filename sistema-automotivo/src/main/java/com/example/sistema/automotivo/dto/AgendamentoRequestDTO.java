@@ -1,11 +1,21 @@
 package com.example.sistema.automotivo.dto;
 
+import jakarta.validation.constraints.FutureOrPresent;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 import java.time.LocalDateTime;
 
 public class AgendamentoRequestDTO {
-
+    @NotNull(message = "O ID do cliente é obrigatório")
     private Long clienteId;
+
+
+    @NotNull(message = "A data de agendamento é obrigatória")
+    @FutureOrPresent(message = "A data de agendamento deve ser no presente ou no futuro")
     private LocalDateTime dataAgendamento;
+
+    @NotBlank(message = "O tipo de serviço é obrigatório e não pode estar em branco")
     private String tipoServico;
 
     public AgendamentoRequestDTO() {
@@ -41,14 +51,7 @@ public class AgendamentoRequestDTO {
         this.tipoServico = tipoServico;
     }
 
-    @Override
-    public String toString() {
-        return "AgendamentoRequestDTO{" +
-                "clienteId=" + clienteId +
-                ", dataAgendamento=" + dataAgendamento +
-                ", tipoServico='" + tipoServico + '\'' +
-                '}';
-    }
+
 
 
 }

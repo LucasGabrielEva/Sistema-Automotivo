@@ -1,8 +1,16 @@
 package com.example.sistema.automotivo.dto;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 public class OrdemServicoRequestDTO {
+    @NotNull(message = "O ID do cliente é obrigatório")
     private Long clienteId;
+
+    @NotBlank(message = "O modelo do veículo é obrigatório")
     private String modeloVeiculo;
+
+    @NotBlank(message = "A descrição do problema é obrigatória e não pode estar vazia")
     private String descricaoProblema;
 
     public OrdemServicoRequestDTO() {

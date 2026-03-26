@@ -2,8 +2,10 @@ package com.example.sistema.automotivo.service;
 
 import com.example.sistema.automotivo.dto.OficinaParceiroRequestDTO;
 import com.example.sistema.automotivo.dto.OficinaParceiroResponseDTO;
+import com.example.sistema.automotivo.mapper.OficinaParceiraMapper;
 import com.example.sistema.automotivo.model.OficinaParceiraModel;
 import com.example.sistema.automotivo.repository.OficinaParceiroRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,42 +13,42 @@ import java.util.stream.Collectors;
 
 @Service
 public class OficinaParceiroService {
+    @Autowired
     private OficinaParceiroRepository repository;
 
-    public OficinaParceiroResponseDTO cadastrarOficina(OficinaParceiroRequestDTO request) {
+    @Autowired
+    private UsuarioService usuarioService;
+
+    @Autowired
+    private OficinaParceiraMapper oficinaParceiraMapper;
+
+
+    public OficinaParceiraModel cadastrarOficina(OficinaParceiroRequestDTO request) {
         OficinaParceiraModel oficina = new OficinaParceiraModel();
         oficina.setNome(request.getNome());
         oficina.setLatitude(request.getLatitude());
         oficina.setLongitude(request.getLongitude());
         oficina.setEndereco(request.getEndereco());
 
-        oficina = repository.save(oficina);
-        return mapearParaResponse(oficina);
+        // Retorna diretamente o save, igual ao enviarMensagem
+        return repository.save(oficina);
     }
 
     public List<OficinaParceiroResponseDTO> listarTodas() {
         return repository.findAll()
                 .stream()
-                .map(this::mapearParaResponse)
+                // Usa o mapper injetado, igual ao obterHistoricoChat
+                .map(oficinaParceiraMapper::toResponseDto)
                 .collect(Collectors.toList());
     }
 
-    // Método que utiliza a busca por raio (ex: 20km)
+    // Metodo que utiliza a busca por raio (ex: 20km)
     public List<OficinaParceiroResponseDTO> buscarProximas(Double lat, Double lng, Double raioKm) {
         return repository.buscarOficinasProximas(lat, lng, raioKm)
                 .stream()
-                .map(this::mapearParaResponse)
+                // Usa o mapper injetado, igual ao obterHistoricoChat
+                .map(oficinaParceiraMapper::toResponseDto)
                 .collect(Collectors.toList());
-    }
-
-    private OficinaParceiroResponseDTO mapearParaResponse(OficinaParceiraModel oficina) {
-        OficinaParceiroResponseDTO response = new OficinaParceiroResponseDTO();
-        response.setId(oficina.getId());
-        response.setNome(oficina.getNome());
-        response.setLatitude(oficina.getLatitude());
-        response.setLongitude(oficina.getLongitude());
-        response.setEndereco(oficina.getEndereco());
-        return response;
     }
 
 

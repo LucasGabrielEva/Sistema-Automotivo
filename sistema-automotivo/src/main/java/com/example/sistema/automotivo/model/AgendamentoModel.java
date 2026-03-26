@@ -12,8 +12,9 @@ public class AgendamentoModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long  id;
 
-    @Column(name = "cliente_id", nullable = false)
-    private Long clienteId;
+    @ManyToOne
+    @JoinColumn(name = "cliente_id", nullable = false)
+    private UsuarioModel cliente;
 
     @Column(name = "data_hora_agendamento", nullable = false)
     private LocalDateTime dataHoraAgendamento;
@@ -31,9 +32,9 @@ public class AgendamentoModel {
     public AgendamentoModel() {
     }
 
-    public AgendamentoModel(Long id, Long clienteId, LocalDateTime dataHoraAgendamento, String tipoServico, StatusAgendamento status, LocalDateTime dataCriacao) {
+    public AgendamentoModel(Long id, UsuarioModel cliente, LocalDateTime dataHoraAgendamento, String tipoServico, StatusAgendamento status, LocalDateTime dataCriacao) {
         this.id = id;
-        this.clienteId = clienteId;
+        this.cliente = cliente;
         this.dataHoraAgendamento = dataHoraAgendamento;
         this.tipoServico = tipoServico;
         this.status = status;
@@ -48,12 +49,12 @@ public class AgendamentoModel {
         this.id = id;
     }
 
-    public Long getClienteId() {
-        return clienteId;
+    public UsuarioModel getCliente() {
+        return cliente;
     }
 
-    public void setClienteId(Long clienteId) {
-        this.clienteId = clienteId;
+    public void setCliente(UsuarioModel cliente) {
+        this.cliente = cliente;
     }
 
     public LocalDateTime getDataHoraAgendamento() {
@@ -86,17 +87,5 @@ public class AgendamentoModel {
 
     public void setDataCriacao(LocalDateTime dataCriacao) {
         this.dataCriacao = dataCriacao;
-    }
-
-    @Override
-    public String toString() {
-        return "AgendamentoModel{" +
-                "id=" + id +
-                ", clienteId=" + clienteId +
-                ", dataHoraAgendamento=" + dataHoraAgendamento +
-                ", tipoServico='" + tipoServico + '\'' +
-                ", status=" + status +
-                ", dataCriacao=" + dataCriacao +
-                '}';
     }
 }

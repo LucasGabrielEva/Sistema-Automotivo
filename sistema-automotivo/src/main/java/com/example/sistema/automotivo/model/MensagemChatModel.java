@@ -14,8 +14,9 @@ public class MensagemChatModel {
     @Column(name = "ordem_servico_id", nullable = false)
     private Long ordemServicoId;
 
-    @Column(name = "remetente_id", nullable = false)
-    private Long remetenteId; // Pode ser o ID do Cliente ou do Operador N1, N2, N3
+    @ManyToOne
+    @JoinColumn(name = "remetente_id", nullable = false)
+    private UsuarioModel remetente; // Pode ser o ID do Cliente ou do Operador N1, N2, N3
 
     @Column(nullable = false, columnDefinition = "TEXT")
     private String mensagem;
@@ -26,10 +27,10 @@ public class MensagemChatModel {
     public MensagemChatModel() {
     }
 
-    public MensagemChatModel(Long id, Long ordemServicoId, Long remetenteId, String mensagem, LocalDateTime dataEnvio) {
+    public MensagemChatModel(Long id, Long ordemServicoId, UsuarioModel remetente, String mensagem, LocalDateTime dataEnvio) {
         this.id = id;
         this.ordemServicoId = ordemServicoId;
-        this.remetenteId = remetenteId;
+        this.remetente = remetente;
         this.mensagem = mensagem;
         this.dataEnvio = dataEnvio;
     }
@@ -50,12 +51,12 @@ public class MensagemChatModel {
         this.ordemServicoId = ordemServicoId;
     }
 
-    public Long getRemetenteId() {
-        return remetenteId;
+    public UsuarioModel getRemetente() {
+        return remetente;
     }
 
-    public void setRemetenteId(Long remetenteId) {
-        this.remetenteId = remetenteId;
+    public void setRemetente(UsuarioModel remetente) {
+        this.remetente = remetente;
     }
 
     public String getMensagem() {
@@ -72,16 +73,5 @@ public class MensagemChatModel {
 
     public void setDataEnvio(LocalDateTime dataEnvio) {
         this.dataEnvio = dataEnvio;
-    }
-
-    @Override
-    public String toString() {
-        return "MensagemChatModel{" +
-                "id=" + id +
-                ", ordemServicoId=" + ordemServicoId +
-                ", remetenteId=" + remetenteId +
-                ", mensagem='" + mensagem + '\'' +
-                ", dataEnvio=" + dataEnvio +
-                '}';
     }
 }
