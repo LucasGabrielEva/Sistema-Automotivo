@@ -7,6 +7,10 @@ public class OrdemServicoRequestDTO {
     @NotNull(message = "O ID do cliente é obrigatório")
     private Long clienteId;
 
+    @NotNull(message = "O ID da oficina é obrigatório")
+    private Long oficinaId;
+
+
     @NotBlank(message = "O modelo do veículo é obrigatório")
     private String modeloVeiculo;
 
@@ -16,8 +20,9 @@ public class OrdemServicoRequestDTO {
     public OrdemServicoRequestDTO() {
     }
 
-    public OrdemServicoRequestDTO(Long clienteId, String modeloVeiculo, String descricaoProblema) {
+    public OrdemServicoRequestDTO(Long clienteId, Long oficinaId, String modeloVeiculo, String descricaoProblema) {
         this.clienteId = clienteId;
+        this.oficinaId = oficinaId;
         this.modeloVeiculo = modeloVeiculo;
         this.descricaoProblema = descricaoProblema;
     }
@@ -28,6 +33,14 @@ public class OrdemServicoRequestDTO {
 
     public void setClienteId(Long clienteId) {
         this.clienteId = clienteId;
+    }
+
+    public Long getOficinaId() {
+        return oficinaId;
+    }
+
+    public void setOficinaId(Long oficinaId) {
+        this.oficinaId = oficinaId;
     }
 
     public String getModeloVeiculo() {
@@ -44,14 +57,5 @@ public class OrdemServicoRequestDTO {
 
     public void setDescricaoProblema(String descricaoProblema) {
         this.descricaoProblema = descricaoProblema;
-    }
-
-    @Override
-    public String toString() {
-        return "OrdemServicoRequestDTO{" +
-                "clienteId=" + clienteId +
-                ", modeloVeiculo='" + modeloVeiculo + '\'' +
-                ", descricaoProblema='" + descricaoProblema + '\'' +
-                '}';
     }
 }

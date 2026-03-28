@@ -15,6 +15,11 @@ public class OrdemServicoModel {
     @JoinColumn(name = "cliente_id", nullable = false)
     private UsuarioModel cliente;
 
+    @ManyToOne
+    @JoinColumn(name = "oficina_id", nullable = false)
+    private OficinaParceiraModel oficina;
+
+
     @Column(name = "modelo_veiculo", nullable = false)
     private String modeloVeiculo;
 
@@ -31,9 +36,10 @@ public class OrdemServicoModel {
     public OrdemServicoModel() {
     }
 
-    public OrdemServicoModel(Long id, UsuarioModel cliente, String modeloVeiculo, String descricaoProblema, StatusOrdem status, LocalDateTime dataCriacao) {
+    public OrdemServicoModel(Long id, UsuarioModel cliente, OficinaParceiraModel oficina, String modeloVeiculo, String descricaoProblema, StatusOrdem status, LocalDateTime dataCriacao) {
         this.id = id;
         this.cliente = cliente;
+        this.oficina = oficina;
         this.modeloVeiculo = modeloVeiculo;
         this.descricaoProblema = descricaoProblema;
         this.status = status;
@@ -54,6 +60,14 @@ public class OrdemServicoModel {
 
     public void setCliente(UsuarioModel cliente) {
         this.cliente = cliente;
+    }
+
+    public OficinaParceiraModel getOficina() {
+        return oficina;
+    }
+
+    public void setOficina(OficinaParceiraModel oficina) {
+        this.oficina = oficina;
     }
 
     public String getModeloVeiculo() {

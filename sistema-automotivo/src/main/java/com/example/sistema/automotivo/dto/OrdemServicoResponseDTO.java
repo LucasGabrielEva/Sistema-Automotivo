@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 public class OrdemServicoResponseDTO {
     private Long id;
-    private Long clienteId;
+    private UsuarioResponseDTO cliente;
     private String modeloVeiculo;
     private String descricaoProblema;
     private StatusOrdem status;
@@ -15,9 +15,9 @@ public class OrdemServicoResponseDTO {
     public OrdemServicoResponseDTO() {
     }
 
-    public OrdemServicoResponseDTO(Long id, Long clienteId, String modeloVeiculo, String descricaoProblema, StatusOrdem status, LocalDateTime dataCriacao) {
+    public OrdemServicoResponseDTO(Long id, UsuarioResponseDTO cliente, String modeloVeiculo, String descricaoProblema, StatusOrdem status, LocalDateTime dataCriacao) {
         this.id = id;
-        this.clienteId = clienteId;
+        this.cliente = cliente;
         this.modeloVeiculo = modeloVeiculo;
         this.descricaoProblema = descricaoProblema;
         this.status = status;
@@ -32,12 +32,12 @@ public class OrdemServicoResponseDTO {
         this.id = id;
     }
 
-    public Long getClienteId() {
-        return clienteId;
+    public UsuarioResponseDTO getCliente() {
+        return cliente;
     }
 
-    public void setClienteId(Long clienteId) {
-        this.clienteId = clienteId;
+    public void setCliente(UsuarioResponseDTO cliente) {
+        this.cliente = cliente;
     }
 
     public String getModeloVeiculo() {
@@ -70,17 +70,5 @@ public class OrdemServicoResponseDTO {
 
     public void setDataCriacao(LocalDateTime dataCriacao) {
         this.dataCriacao = dataCriacao;
-    }
-
-    @Override
-    public String toString() {
-        return "OrdemServicoResponseDTO{" +
-                "id=" + id +
-                ", clienteId=" + clienteId +
-                ", modeloVeiculo='" + modeloVeiculo + '\'' +
-                ", descricaoProblema='" + descricaoProblema + '\'' +
-                ", status=" + status +
-                ", dataCriacao=" + dataCriacao +
-                '}';
     }
 }

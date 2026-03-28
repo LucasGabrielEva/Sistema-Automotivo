@@ -11,6 +11,10 @@ public class AgendamentoRequestDTO {
     private Long clienteId;
 
 
+    @NotNull(message = "O ID da Oficina é obrigatória")
+    private Long oficinaId;
+
+
     @NotNull(message = "A data de agendamento é obrigatória")
     @FutureOrPresent(message = "A data de agendamento deve ser no presente ou no futuro")
     private LocalDateTime dataAgendamento;
@@ -21,8 +25,9 @@ public class AgendamentoRequestDTO {
     public AgendamentoRequestDTO() {
     }
 
-    public AgendamentoRequestDTO(Long clienteId, LocalDateTime dataAgendamento, String tipoServico) {
+    public AgendamentoRequestDTO(Long clienteId, Long oficinaId, LocalDateTime dataAgendamento, String tipoServico) {
         this.clienteId = clienteId;
+        this.oficinaId = oficinaId;
         this.dataAgendamento = dataAgendamento;
         this.tipoServico = tipoServico;
     }
@@ -33,6 +38,14 @@ public class AgendamentoRequestDTO {
 
     public void setClienteId(Long clienteId) {
         this.clienteId = clienteId;
+    }
+
+    public Long getOficinaId() {
+        return oficinaId;
+    }
+
+    public void setOficinaId(Long oficinaId) {
+        this.oficinaId = oficinaId;
     }
 
     public LocalDateTime getDataAgendamento() {
@@ -50,8 +63,4 @@ public class AgendamentoRequestDTO {
     public void setTipoServico(String tipoServico) {
         this.tipoServico = tipoServico;
     }
-
-
-
-
 }

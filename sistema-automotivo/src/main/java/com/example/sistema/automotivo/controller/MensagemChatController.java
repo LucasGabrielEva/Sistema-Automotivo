@@ -14,7 +14,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/chat")
-@CrossOrigin(origins = "*")
+
 public class MensagemChatController {
 
     @Autowired

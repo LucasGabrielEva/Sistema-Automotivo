@@ -1,11 +1,14 @@
 package com.example.sistema.automotivo.model;
 
 import jakarta.persistence.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "tab_agendametos")
+@EntityListeners(AuditingEntityListener.class)
 public class AgendamentoModel {
 
     @Id
@@ -15,6 +18,11 @@ public class AgendamentoModel {
     @ManyToOne
     @JoinColumn(name = "cliente_id", nullable = false)
     private UsuarioModel cliente;
+
+    @ManyToOne
+    @JoinColumn(name = "oficina_id", nullable = false)
+    private OficinaParceiraModel oficina;
+
 
     @Column(name = "data_hora_agendamento", nullable = false)
     private LocalDateTime dataHoraAgendamento;
@@ -26,15 +34,17 @@ public class AgendamentoModel {
     @Column(nullable = false)
     private StatusAgendamento status;
 
-    @Column(name = "data_criacao", updatable = false)
+    @CreatedDate
+    @Column(nullable = false)
     private LocalDateTime dataCriacao;
 
     public AgendamentoModel() {
     }
 
-    public AgendamentoModel(Long id, UsuarioModel cliente, LocalDateTime dataHoraAgendamento, String tipoServico, StatusAgendamento status, LocalDateTime dataCriacao) {
+    public AgendamentoModel(Long id, UsuarioModel cliente, OficinaParceiraModel oficina, LocalDateTime dataHoraAgendamento, String tipoServico, StatusAgendamento status, LocalDateTime dataCriacao) {
         this.id = id;
         this.cliente = cliente;
+        this.oficina = oficina;
         this.dataHoraAgendamento = dataHoraAgendamento;
         this.tipoServico = tipoServico;
         this.status = status;
@@ -55,6 +65,14 @@ public class AgendamentoModel {
 
     public void setCliente(UsuarioModel cliente) {
         this.cliente = cliente;
+    }
+
+    public OficinaParceiraModel getOficina() {
+        return oficina;
+    }
+
+    public void setOficina(OficinaParceiraModel oficina) {
+        this.oficina = oficina;
     }
 
     public LocalDateTime getDataHoraAgendamento() {

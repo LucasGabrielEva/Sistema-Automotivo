@@ -5,17 +5,17 @@ import java.time.LocalDateTime;
 public class MensagemChatResponseDTO {
     private Long id;
     private Long ordemServicoId;
-    private Long remetenteId;
+    private UsuarioResponseDTO remetente;
     private String mensagem;
     private LocalDateTime dataEnvio;
 
     public MensagemChatResponseDTO() {
     }
 
-    public MensagemChatResponseDTO(Long id, Long ordemServicoId, Long remetenteId, String mensagem, LocalDateTime dataEnvio) {
+    public MensagemChatResponseDTO(Long id, Long ordemServicoId, UsuarioResponseDTO remetente, String mensagem, LocalDateTime dataEnvio) {
         this.id = id;
         this.ordemServicoId = ordemServicoId;
-        this.remetenteId = remetenteId;
+        this.remetente = remetente;
         this.mensagem = mensagem;
         this.dataEnvio = dataEnvio;
     }
@@ -36,12 +36,12 @@ public class MensagemChatResponseDTO {
         this.ordemServicoId = ordemServicoId;
     }
 
-    public Long getRemetenteId() {
-        return remetenteId;
+    public UsuarioResponseDTO getRemetente() {
+        return remetente;
     }
 
-    public void setRemetenteId(Long remetenteId) {
-        this.remetenteId = remetenteId;
+    public void setRemetente(UsuarioResponseDTO remetente) {
+        this.remetente = remetente;
     }
 
     public String getMensagem() {
@@ -58,16 +58,5 @@ public class MensagemChatResponseDTO {
 
     public void setDataEnvio(LocalDateTime dataEnvio) {
         this.dataEnvio = dataEnvio;
-    }
-
-    @Override
-    public String toString() {
-        return "MensagemChatResponseDTO{" +
-                "id=" + id +
-                ", ordemServicoId=" + ordemServicoId +
-                ", remetenteId=" + remetenteId +
-                ", mensagem='" + mensagem + '\'' +
-                ", dataEnvio=" + dataEnvio +
-                '}';
     }
 }

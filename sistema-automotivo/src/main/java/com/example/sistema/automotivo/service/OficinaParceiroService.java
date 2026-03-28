@@ -4,6 +4,7 @@ import com.example.sistema.automotivo.dto.OficinaParceiroRequestDTO;
 import com.example.sistema.automotivo.dto.OficinaParceiroResponseDTO;
 import com.example.sistema.automotivo.mapper.OficinaParceiraMapper;
 import com.example.sistema.automotivo.model.OficinaParceiraModel;
+import com.example.sistema.automotivo.model.OrdemServicoModel;
 import com.example.sistema.automotivo.repository.OficinaParceiroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,6 +34,12 @@ public class OficinaParceiroService {
         // Retorna diretamente o save, igual ao enviarMensagem
         return repository.save(oficina);
     }
+    public OficinaParceiraModel buscarOficinaParceiraPorId(Long id) {
+        OficinaParceiraModel oficina = repository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Oficina não encontrado"));
+        return oficina;
+    }
+
 
     public List<OficinaParceiroResponseDTO> listarTodas() {
         return repository.findAll()

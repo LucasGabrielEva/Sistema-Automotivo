@@ -1,12 +1,15 @@
 package com.example.sistema.automotivo.model;
 
 import jakarta.persistence.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "tab_usuarios")
+@EntityListeners(AuditingEntityListener.class)
 public class UsuarioModel {
 
     @Id
@@ -27,7 +30,8 @@ public class UsuarioModel {
     private Perfil perfil;
 
 
-    @Column(name = "data_criacao", updatable = false)
+    @CreatedDate
+    @Column(nullable = false)
     private LocalDateTime dataCriacao;
 
     public UsuarioModel() {

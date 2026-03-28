@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 public class AgendamentoResponseDTO {
     private Long id;
-    private Long clienteId;
+    private UsuarioResponseDTO cliente;
     private LocalDateTime dataHoraAgendamento;
     private String tipoServico;
     private StatusAgendamento status;
@@ -15,9 +15,9 @@ public class AgendamentoResponseDTO {
     public AgendamentoResponseDTO() {
     }
 
-    public AgendamentoResponseDTO(Long id, Long clienteId, LocalDateTime dataHoraAgendamento, String tipoServico, StatusAgendamento status, LocalDateTime dataCriacao) {
+    public AgendamentoResponseDTO(Long id, UsuarioResponseDTO cliente, LocalDateTime dataHoraAgendamento, String tipoServico, StatusAgendamento status, LocalDateTime dataCriacao) {
         this.id = id;
-        this.clienteId = clienteId;
+        this.cliente = cliente;
         this.dataHoraAgendamento = dataHoraAgendamento;
         this.tipoServico = tipoServico;
         this.status = status;
@@ -32,12 +32,12 @@ public class AgendamentoResponseDTO {
         this.id = id;
     }
 
-    public Long getClienteId() {
-        return clienteId;
+    public UsuarioResponseDTO getCliente() {
+        return cliente;
     }
 
-    public void setClienteId(Long clienteId) {
-        this.clienteId = clienteId;
+    public void setCliente(UsuarioResponseDTO cliente) {
+        this.cliente = cliente;
     }
 
     public LocalDateTime getDataHoraAgendamento() {
@@ -70,17 +70,5 @@ public class AgendamentoResponseDTO {
 
     public void setDataCriacao(LocalDateTime dataCriacao) {
         this.dataCriacao = dataCriacao;
-    }
-
-    @Override
-    public String toString() {
-        return "AgendamentoResponseDTO{" +
-                "id=" + id +
-                ", clienteId=" + clienteId +
-                ", dataHoraAgendamento=" + dataHoraAgendamento +
-                ", tipoServico='" + tipoServico + '\'' +
-                ", status=" + status +
-                ", dataCriacao=" + dataCriacao +
-                '}';
     }
 }

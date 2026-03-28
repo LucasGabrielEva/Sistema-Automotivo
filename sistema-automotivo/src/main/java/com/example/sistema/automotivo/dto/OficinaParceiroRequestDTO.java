@@ -12,12 +12,12 @@ public class OficinaParceiroRequestDTO {
     @NotNull(message = "A latitude é obrigatória")
     @DecimalMin(value = "-90.0", message = "Latitude inválida. O valor mínimo é -90.0")
     @DecimalMax(value = "90.0", message = "Latitude inválida. O valor máximo é 90.0")
-    private double latitude;
+    private Double latitude;
 
     @NotNull(message = "A longitude é obrigatória")
     @DecimalMin(value = "-180.0", message = "Longitude inválida. O valor mínimo é -180.0")
     @DecimalMax(value = "180.0", message = "Longitude inválida. O valor máximo é 180.0")
-    private double longitude;
+    private Double longitude;
 
     @NotBlank(message = "O endereço é obrigatório")
     private String endereco;
@@ -25,7 +25,7 @@ public class OficinaParceiroRequestDTO {
     public OficinaParceiroRequestDTO() {
     }
 
-    public OficinaParceiroRequestDTO(String nome, double latitude, double longitude, String endereco) {
+    public OficinaParceiroRequestDTO(String nome, Double latitude, Double longitude, String endereco) {
         this.nome = nome;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -40,19 +40,19 @@ public class OficinaParceiroRequestDTO {
         this.nome = nome;
     }
 
-    public double getLatitude() {
+    public Double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(double latitude) {
+    public void setLatitude(Double latitude) {
         this.latitude = latitude;
     }
 
-    public double getLongitude() {
+    public Double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(double longitude) {
+    public void setLongitude(Double longitude) {
         this.longitude = longitude;
     }
 
@@ -62,15 +62,5 @@ public class OficinaParceiroRequestDTO {
 
     public void setEndereco(String endereco) {
         this.endereco = endereco;
-    }
-
-    @Override
-    public String toString() {
-        return "OficinaParceiroRequestDTO{" +
-                "nome='" + nome + '\'' +
-                ", latitude=" + latitude +
-                ", longitude=" + longitude +
-                ", endereco='" + endereco + '\'' +
-                '}';
     }
 }

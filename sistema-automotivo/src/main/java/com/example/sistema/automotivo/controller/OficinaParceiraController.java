@@ -14,8 +14,8 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping(name = "/oficinas")
-@CrossOrigin(origins = "*")
+@RequestMapping("/oficinas")
+
 public class OficinaParceiraController {
     @Autowired
     private OficinaParceiroService service;

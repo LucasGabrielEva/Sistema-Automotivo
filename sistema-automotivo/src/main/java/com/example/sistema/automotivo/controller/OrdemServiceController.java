@@ -15,7 +15,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/OS")
-@CrossOrigin(origins = "*")
+
 public class OrdemServiceController {
     @Autowired
     private OrdemServicoService service;

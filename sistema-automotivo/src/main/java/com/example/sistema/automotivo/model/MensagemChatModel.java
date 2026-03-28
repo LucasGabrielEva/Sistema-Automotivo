@@ -11,8 +11,9 @@ public class MensagemChatModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "ordem_servico_id", nullable = false)
-    private Long ordemServicoId;
+    @ManyToOne
+    @JoinColumn(name = "ordem_servico_id", nullable = false)
+    private OrdemServicoModel ordemServico;
 
     @ManyToOne
     @JoinColumn(name = "remetente_id", nullable = false)
@@ -27,9 +28,9 @@ public class MensagemChatModel {
     public MensagemChatModel() {
     }
 
-    public MensagemChatModel(Long id, Long ordemServicoId, UsuarioModel remetente, String mensagem, LocalDateTime dataEnvio) {
+    public MensagemChatModel(Long id, OrdemServicoModel ordemServico, UsuarioModel remetente, String mensagem, LocalDateTime dataEnvio) {
         this.id = id;
-        this.ordemServicoId = ordemServicoId;
+        this.ordemServico = ordemServico;
         this.remetente = remetente;
         this.mensagem = mensagem;
         this.dataEnvio = dataEnvio;
@@ -43,12 +44,12 @@ public class MensagemChatModel {
         this.id = id;
     }
 
-    public Long getOrdemServicoId() {
-        return ordemServicoId;
+    public OrdemServicoModel getOrdemServico() {
+        return ordemServico;
     }
 
-    public void setOrdemServicoId(Long ordemServicoId) {
-        this.ordemServicoId = ordemServicoId;
+    public void setOrdemServico(OrdemServicoModel ordemServico) {
+        this.ordemServico = ordemServico;
     }
 
     public UsuarioModel getRemetente() {
