@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 public class OrdemServicoResponseDTO {
     private Long id;
     private UsuarioResponseDTO cliente;
+    private OficinaParceiroResponseDTO oficina;
     private String modeloVeiculo;
     private String descricaoProblema;
     private StatusOrdem status;
@@ -15,9 +16,10 @@ public class OrdemServicoResponseDTO {
     public OrdemServicoResponseDTO() {
     }
 
-    public OrdemServicoResponseDTO(Long id, UsuarioResponseDTO cliente, String modeloVeiculo, String descricaoProblema, StatusOrdem status, LocalDateTime dataCriacao) {
+    public OrdemServicoResponseDTO(Long id, UsuarioResponseDTO cliente, OficinaParceiroResponseDTO oficina, String modeloVeiculo, String descricaoProblema, StatusOrdem status, LocalDateTime dataCriacao) {
         this.id = id;
         this.cliente = cliente;
+        this.oficina = oficina;
         this.modeloVeiculo = modeloVeiculo;
         this.descricaoProblema = descricaoProblema;
         this.status = status;
@@ -38,6 +40,14 @@ public class OrdemServicoResponseDTO {
 
     public void setCliente(UsuarioResponseDTO cliente) {
         this.cliente = cliente;
+    }
+
+    public OficinaParceiroResponseDTO getOficina() {
+        return oficina;
+    }
+
+    public void setOficina(OficinaParceiroResponseDTO oficina) {
+        this.oficina = oficina;
     }
 
     public String getModeloVeiculo() {

@@ -1,15 +1,17 @@
 package com.example.sistema.automotivo.mapper;
 
 import com.example.sistema.automotivo.dto.AgendamentoResponseDTO;
+import com.example.sistema.automotivo.dto.OficinaParceiroResponseDTO;
 import com.example.sistema.automotivo.dto.UsuarioResponseDTO;
 import com.example.sistema.automotivo.model.AgendamentoModel;
+import com.example.sistema.automotivo.model.OficinaParceiraModel;
 import com.example.sistema.automotivo.model.UsuarioModel;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2026-03-27T09:05:28-0300",
+    date = "2026-04-01T20:02:00-0300",
     comments = "version: 1.6.3, compiler: javac, environment: Java 24.0.2 (Oracle Corporation)"
 )
 @Component
@@ -25,6 +27,7 @@ public class AgendamentoMapperImpl implements AgendamentoMapper {
 
         agendamentoResponseDTO.setId( agendamentoModel.getId() );
         agendamentoResponseDTO.setCliente( usuarioModelToUsuarioResponseDTO( agendamentoModel.getCliente() ) );
+        agendamentoResponseDTO.setOficina( oficinaParceiraModelToOficinaParceiroResponseDTO( agendamentoModel.getOficina() ) );
         agendamentoResponseDTO.setDataHoraAgendamento( agendamentoModel.getDataHoraAgendamento() );
         agendamentoResponseDTO.setTipoServico( agendamentoModel.getTipoServico() );
         agendamentoResponseDTO.setStatus( agendamentoModel.getStatus() );
@@ -50,5 +53,21 @@ public class AgendamentoMapperImpl implements AgendamentoMapper {
         }
 
         return usuarioResponseDTO;
+    }
+
+    protected OficinaParceiroResponseDTO oficinaParceiraModelToOficinaParceiroResponseDTO(OficinaParceiraModel oficinaParceiraModel) {
+        if ( oficinaParceiraModel == null ) {
+            return null;
+        }
+
+        OficinaParceiroResponseDTO oficinaParceiroResponseDTO = new OficinaParceiroResponseDTO();
+
+        oficinaParceiroResponseDTO.setId( oficinaParceiraModel.getId() );
+        oficinaParceiroResponseDTO.setNome( oficinaParceiraModel.getNome() );
+        oficinaParceiroResponseDTO.setLatitude( oficinaParceiraModel.getLatitude() );
+        oficinaParceiroResponseDTO.setLongitude( oficinaParceiraModel.getLongitude() );
+        oficinaParceiroResponseDTO.setEndereco( oficinaParceiraModel.getEndereco() );
+
+        return oficinaParceiroResponseDTO;
     }
 }

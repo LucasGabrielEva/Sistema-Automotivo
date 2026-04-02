@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 public class AgendamentoResponseDTO {
     private Long id;
     private UsuarioResponseDTO cliente;
+    private OficinaParceiroResponseDTO oficina;
     private LocalDateTime dataHoraAgendamento;
     private String tipoServico;
     private StatusAgendamento status;
@@ -15,9 +16,10 @@ public class AgendamentoResponseDTO {
     public AgendamentoResponseDTO() {
     }
 
-    public AgendamentoResponseDTO(Long id, UsuarioResponseDTO cliente, LocalDateTime dataHoraAgendamento, String tipoServico, StatusAgendamento status, LocalDateTime dataCriacao) {
+    public AgendamentoResponseDTO(Long id, UsuarioResponseDTO cliente, OficinaParceiroResponseDTO oficina, LocalDateTime dataHoraAgendamento, String tipoServico, StatusAgendamento status, LocalDateTime dataCriacao) {
         this.id = id;
         this.cliente = cliente;
+        this.oficina = oficina;
         this.dataHoraAgendamento = dataHoraAgendamento;
         this.tipoServico = tipoServico;
         this.status = status;
@@ -38,6 +40,14 @@ public class AgendamentoResponseDTO {
 
     public void setCliente(UsuarioResponseDTO cliente) {
         this.cliente = cliente;
+    }
+
+    public OficinaParceiroResponseDTO getOficina() {
+        return oficina;
+    }
+
+    public void setOficina(OficinaParceiroResponseDTO oficina) {
+        this.oficina = oficina;
     }
 
     public LocalDateTime getDataHoraAgendamento() {
