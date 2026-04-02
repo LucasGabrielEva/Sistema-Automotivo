@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Auto HelpDesk - Sistema Completo</title>
+  </head>
+  <body>
+    <button class="menu-toggle" id="menuToggle">☰ Menu</button>
+
+    <div class="container">
+      <nav class="sidebar" id="sidebar">
+        
+        <div class="marca-triandesk">
+            <img src="logo.png" alt="Logótipo TRIANDESK" class="logo-img">
+            <span class="nome-marca">TRIANDESK</span>
+        </div>
+        
+        <p>Módulos do Sistema</p>
+        <ul>
+          <li><a href="#" data-target="sec-os" class="nav-link active">⚙️ Ordens de Serviço</a></li>
+          <li><a href="#" data-target="sec-agendamento" class="nav-link">📅 Agendamentos</a></li>
+          <li><a href="#" data-target="sec-oficina" class="nav-link">🔧 Oficinas Parceiras</a></li>
+          <li><a href="#" data-target="sec-usuario" class="nav-link">👥 Usuários</a></li>
+          <li><a href="#" data-target="sec-chat" class="nav-link">💬 Chat Suporte</a></li>
+        </ul>
+      </nav>
+
+      <main class="content">
+        
+        <section id="sec-os" class="view-section active">
+          <h1>Ordens de Serviço</h1>
+          
+          <div class="card">
+            <h3>Nova OS</h3>
+            <form id="form-os">
+              <input type="number" id="osClienteId" placeholder="ID do Cliente" required>
+              <input type="number" id="osOficinaId" placeholder="ID da Oficina" required>
+              <input type="text" id="osModelo" placeholder="Modelo do Veículo" required>
+              <textarea id="osProblema" placeholder="Descrição do Problema" required></textarea>
+              <button type="submit">Gerar OS</button>
+            </form>
+          </div>
+
+          <div class="table-responsive">
+            <button id="btnAtualizarOS" style="margin-bottom: 15px;">🔄 Atualizar Lista</button>
+            <table id="tabela-os">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Cliente ID</th>
+                  <th>Oficina ID</th> <th>Veículo</th>
+                  <th>Status</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="sec-agendamento" class="view-section">
+          <h1>Agendamentos</h1>
+          <div class="card">
+            <h3>Novo Agendamento</h3>
+            <form id="form-agendamento">
+              <input type="number" id="agClienteId" placeholder="ID do Cliente" required>
+              
+              <input type="number" id="agOficinaId" placeholder="ID da Oficina" required>
+              
+              <input type="datetime-local" id="agData" required>
+              <input type="text" id="agTipo" placeholder="Tipo de Serviço (Ex: Troca de óleo)" required>
+              <button type="submit">Agendar</button>
+            </form>
+          </div>
+          <div class="table-responsive">
+            <button id="btnAtualizarAgendamento">🔄 Atualizar Lista</button>
+            <table id="tabela-agendamento">
+              <thead><tr><th>ID</th><th>Cliente ID</th><th>Oficina ID</th> <th>Data/Hora</th><th>Serviço</th><th>Status</th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="sec-oficina" class="view-section">
+          <h1>Oficinas Parceiras</h1>
+          <div class="card">
+            <h3>Cadastrar Oficina</h3>
+            <form id="form-oficina">
+              <input type="text" id="ofNome" placeholder="Nome da Oficina" required>
+              <input type="number" step="any" id="ofLat" placeholder="Latitude (Ex: -23.55)" required>
+              <input type="number" step="any" id="ofLng" placeholder="Longitude (Ex: -46.63)" required>
+              <input type="text" id="ofEndereco" placeholder="Endereço Completo" required>
+              <button type="submit">Cadastrar</button>
+            </form>
+          </div>
+          <div class="table-responsive">
+            <button id="btnAtualizarOficina">🔄 Listar Todas</button>
+            <table id="tabela-oficina">
+              <thead><tr><th>ID</th><th>Nome</th><th>Localização</th><th>Endereço</th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="sec-usuario" class="view-section">
+          <h1>Gestão de Usuários</h1>
+          <div class="card">
+            <h3>Novo Usuário</h3>
+            <form id="form-usuario">
+              <input type="text" id="usuNome" placeholder="Nome Completo" required>
+              <input type="email" id="usuEmail" placeholder="E-mail" required>
+              <input type="password" id="usuSenha" placeholder="Senha" required>
+              <select id="usuPerfil" required>
+                <option value="CLIENTE">CLIENTE</option>
+                <option value="N1">Suporte N1</option>
+                <option value="N2">Suporte N2</option>
+                <option value="N3">Suporte N3</option>
+              </select>
+              <button type="submit">Cadastrar Usuário</button>
+            </form>
+          </div>
+          <div class="table-responsive">
+            <button id="btnAtualizarUsuario">🔄 Atualizar Lista</button>
+            <table id="tabela-usuario">
+              <thead><tr><th>ID</th><th>Nome</th><th>E-mail</th><th>Perfil</th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="sec-chat" class="view-section">
+          <h1>Chat de Suporte</h1>
+          <p>Abra o chat clicando no botão "Abrir Chat" na lista de Ordens de Serviço.</p>
+          <div class="chat-container">
+            <div class="chat-header">OS Atual: <span id="chat-os-id">Nenhuma selecionada</span></div>
+            <div id="chat-historico" class="chat-historico"></div>
+            <form id="form-chat" class="chat-form">
+              <input type="hidden" id="chatOrdemServicoId">
+              <input type="hidden" id="chatRemetenteId" value="1"> <input type="text" id="chatMensagem" placeholder="Digite sua mensagem..." required>
+              <button type="submit">Enviar</button>
+            </form>
+          </div>
+        </section>
+
+      </main>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
